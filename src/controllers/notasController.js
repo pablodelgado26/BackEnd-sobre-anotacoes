@@ -40,6 +40,27 @@ class NotasController {
     }
   };
 
+  updateFavorito = async (req, res) => {
+    const { id } = req.params;
+    const { favorito } = req.body;
+    
+    try {
+      if (favorito === undefined) {
+        return res.status(400).json({ erro: "O campo 'favorito' é obrigatório" });
+      }
+      const notaAtualizada = await notasModel.updateFavorito(Number(id), favorito);
+      
+      if (!notaAtualizada) {
+        return res.status(404).json({ erro: "Nota não encontrada" });
+      }
+      
+      res.json(notaAtualizada);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ erro: "Erro ao atualizar favorito da nota" });
+    }
+  };
+
   delete = async (req, res) => {
     const { id } = req.params;
     try {
