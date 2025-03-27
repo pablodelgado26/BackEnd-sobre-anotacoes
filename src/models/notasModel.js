@@ -14,15 +14,18 @@ class notasModel {
     })
   };
 
-  update = async (id, titulo) => {
+  update = async (id, titulo, conteudo, favorito, cor) => {
     try {
-      const tarefa = await prisma.nota.update({
+      const nota = await prisma.nota.update({
         where: { id },
         data: {
-          titulo: titulo !== undefined ? titulo : true,
+          titulo,
+          conteudo,
+          favorito,
+          cor,
         }
       });
-      return tarefa;
+      return nota;
     } catch (error) {
       console.log("Error", error);
       throw error
@@ -31,10 +34,10 @@ class notasModel {
 
   delete = async (id) => {
     try {
-      const tarefaDeletada = await prisma.nota.delete({
+      const notaDeletada = await prisma.nota.delete({
         where: { id },
       });
-      return tarefaDeletada;
+      return notaDeletada;
     } catch (error) {
       console.error("Error ao deletar a nota!", error);
       throw error;
