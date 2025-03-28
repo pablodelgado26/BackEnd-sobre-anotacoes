@@ -5,5 +5,6 @@ router.get("/", notasController.getAll);
 router.get("/:id", notasController.getById);
 router.post("/", notasController.create);
 router.put("/:id", notasController.update);
+router.post("/:id", notasController.updateFavorito);
 router.delete("/:id", notasController.delete);
 export default router;

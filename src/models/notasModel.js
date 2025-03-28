@@ -38,6 +38,21 @@ class notasModel {
     }
   };
 
+  updateFavorito = async (id, favorito) => {
+    try {
+      const nota = await prisma.nota.update({
+        where: { id },
+        data: {
+          favorito,
+        }
+      });
+      return nota;
+    } catch (error) {
+      console.log("Error", error);
+      throw error
+    }
+  };
+
   delete = async (id) => {
     try {
       const notaDeletada = await prisma.nota.delete({
