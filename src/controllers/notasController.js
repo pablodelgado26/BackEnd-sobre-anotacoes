@@ -11,6 +11,20 @@ class NotasController {
     }
   };
 
+  getById = async (req, res) => {
+    const { id } = req.params;
+    try {
+      const nota = await notasModel.getById(Number(id));
+      if (!nota) {
+        return res.status(404).json({ erro: "nota não encontrada" });
+      }
+      res.json(nota);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ erro: "Erro ao buscar nota" });
+    }
+  }
+
   create = async (req, res) => {
     const { titulo, conteudo } = req.body;
     try {
@@ -66,12 +80,12 @@ class NotasController {
     try {
       const sucesso = await notasModel.delete(Number(id));
       if (!sucesso) {
-        return res.status(404).json({ erro: "Tarefa não encontrada" });
+        return res.status(404).json({ erro: "nota não encontrada" });
       }
-      res.status(200).send({ message: "Tarefa deletada com sucesso" });
+      res.status(200).send({ message: "nota deletada com sucesso" });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ erro: "Erro ao deletar tarefa" });
+      res.status(500).json({ erro: "Erro ao deletar nota" });
     }
   };
 }

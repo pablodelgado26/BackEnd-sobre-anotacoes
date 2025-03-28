@@ -5,6 +5,12 @@ class notasModel {
     return await prisma.nota.findMany();
   }
 
+  getById = async (id) => {
+    return await prisma.nota.findUnique({
+      where: { id },
+    });
+  }
+
   create = async (titulo, conteudo) => {
     return await prisma.nota.create({
       data: {
